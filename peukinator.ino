@@ -1,3 +1,4 @@
+// Importing an unnecessary amount of libraries
 #include <NewPing.h>
 
 #include <HardwareSerial.h>
@@ -31,25 +32,99 @@
 #include <platforms.h>
 #include <power_mgt.h>
 
+// Led pins and amount
 #define LED_PIN 7
 #define NUM_LEDS 30
 
-#define TRIG_PIN D5
-#define ECHO_PIN D6
-#define MAX_DISTANCE 400
+// Other pins used
+#define PRESS_PIN A0
+#define POT_PIN D6
 
+// Defining leds
 CRGB leds[NUM_LEDS];
 
-NewPing sonar(TRIG_PIN, ECHO_PIN, MAX_DISTANCE);
+// Defining mp3
+HardwareSerial mp3 = D5;
 
-HardwareSerial mp3 = D3;
+// Delay & Intervals
+unsigned long idleTimeOut = 0; // last time idle
+unsigned long lastIdleCycle = 0; // last time cycled through an idle state
+unsigned long idleState = 0;
+unsigned long minIdleTime = 30000; // 30 seconds
 
 void setup()
 {
-  
+  FastLED.addLeds<NEOPIXEL, LED_PIN>(leds, NUM_LEDS);
+
+  pinMode(POT_PIN, INPUT);
+
+  Serial.begin(115200);
+  mp3.begin(115200);
+
+  // Code voor verbinden met Adafruit
 }
 
 void loop()
 {
-	
+  int currentMotivation = checkPot();
+  Serial.print('Motivatie: ');
+  Serial.println(currentMotivation);
+
+  int pressValue = analogRead(PRESS_PIN);
+
+  if (!pressValue < 100)
+  {
+    idleTimeOut = millis();
+    startGame(currentMotivation);
+    return;
+  }
+}
+
+int checkPot() {
+  int potValue = digitalRead(POT_PIN);
+
+  if (potValue < 100)
+  {
+    return 1;
+  }
+  else if (potValue < 200)
+  {
+    return 2;
+  }
+  else if (potValue < 300)
+  {
+    return 3;
+  }
+}
+
+void startGame(int motivation)
+{
+  SpecifyMusicPlay(motivation);
+  PlayResume();
+
+  switch (motivation)
+  {
+    case 1:
+    {
+      for (int i = 0; i < NUM_LEDS; i++) {
+        leds[i] = CRGB::Green;
+      }
+      break;
+    }
+    case 2:
+    {
+      for (int i = 0; i < NUM_LEDS; i++)
+      {
+        leds[i] = CRGB::Red;
+      }
+    }
+    case 3:
+    {
+      for (int i = 0; i < NUM_LEDS; i++)
+      {
+        leds[i] = CRGB::Blue;
+      }
+    }
+  }
+  FastLED.show();
 }
