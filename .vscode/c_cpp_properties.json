@@ -4,13 +4,20 @@
             "name": "Mac",
             "includePath": [
                 "/Users/jonah/Library/Arduino15/packages/esp8266/hardware/esp8266/2.3.0/cores/esp8266",
-                "/Users/jonah/Documents/Arduino/libraries"
+                "/Users/jonah/Documents/Arduino/libraries/FastLED",
+                "/Users/jonah/Documents/Arduino/libraries/Grove_Serial_MP3_Player_V2.0",
+                "/Users/jonah/Library/Arduino15/packages/esp8266/hardware/esp8266/2.3.0/libraries/SoftwareSerial",
+                "/Users/jonah/Documents/Arduino/libraries/NewPing"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": false,
                 "path": [
                     "/Users/jonah/Library/Arduino15/packages/esp8266/hardware/esp8266/2.3.0/cores/esp8266",
-                    "${workspaceRoot}"
+                    "${workspaceRoot}",
+                    "/Users/jonah/Documents/Arduino/libraries/FastLED",
+                    "/Users/jonah/Documents/Arduino/libraries/Grove_Serial_MP3_Player_V2.0",
+                    "/Users/jonah/Library/Arduino15/packages/esp8266/hardware/esp8266/2.3.0/libraries/SoftwareSerial",
+                    "/Users/jonah/Documents/Arduino/libraries/NewPing"
                 ]
             },
             "intelliSenseMode": "clang-x64",
